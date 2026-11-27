@@ -677,3 +677,13 @@ h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
 @media (max-width: 640px) { .logo img { height: 36px; } .stats { margin-top: 28px; } }
 .logo img { height: 40px; }
 @media (max-width: 640px) { .logo img { height: 34px; } }
+/* Пометки ближе к фото, но не касаются его и текста по бокам */
+@media (min-width: 901px) {
+  .note--1 { right: calc(50% + var(--pw) / 2 + 36px); top: 30%; }
+  .note--2 { left: calc(50% + var(--pw) / 2 + 36px); top: 30%; }
+  .note--3 { right: calc(50% + var(--pw) / 2 + 30px); top: 50%; }
+  .note--4 { left: calc(50% + var(--pw) / 2 + 30px); top: 66%; }
+  .note svg { width: 34px; height: 24px; }
+  .note--1 svg { right: -38px; } .note--3 svg { right: -38px; }
+  .note--2 svg { left: -40px; } .note--4 svg { left: -40px; }
+}

@@ -32,6 +32,7 @@
       $('#preloader')?.classList.add('is-done');
       document.documentElement.classList.add('is-loaded');
       revealInit();
+      dispatchEvent(new Event('vs:loaded'));
     }, Math.max(0, CONFIG.preloaderMin - (performance.now() - t0)));
   };
   if (document.readyState === 'complete') hidePreloader(); else addEventListener('load', hidePreloader, { once: true });
@@ -143,15 +144,20 @@
   const runStats = () => {
     $$('[data-count-to]', statsBox).forEach(el => {
       const to = +el.dataset.countTo, start = performance.now();
-      const tick = now => { const p = Math.min(1, (now - start) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+      const tick = now => { const p = Math.min(1, (now - start) / 2600); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
       el.textContent = '0'; requestAnimationFrame(tick);
     });
     $$('[data-level]', statsBox).forEach(el => {
       const lv = el.dataset.level.split(','); let i = 0; el.textContent = lv[0];
-      const step = () => { if (++i >= lv.length) return; el.classList.add('is-switch'); setTimeout(() => { el.textContent = lv[i]; el.classList.remove('is-switch'); setTimeout(step, 230); }, 200); };
-      setTimeout(step, 300);
+      const step = () => { if (++i >= lv.length) return; el.classList.add('is-switch'); setTimeout(() => { el.textContent = lv[i]; el.classList.remove('is-switch'); setTimeout(step, 380); }, 260); };
+      setTimeout(step, 450);
     });
   };
+  // до старта анимации показываем начальные значения, а не итоговые
+  if (!reduced && statsBox) {
+    $$('[data-count-to]', statsBox).forEach(el => { el.textContent = '0'; });
+    $$('[data-level]', statsBox).forEach(el => { el.textContent = el.dataset.level.split(',')[0]; });
+  }
   const counter = $('[data-count]');
   const runCounter = () => {
     const to = +counter.dataset.count, sup = counter.querySelector('sup')?.outerHTML || '', start = performance.now();
@@ -160,7 +166,8 @@
   };
   if (!reduced && 'IntersectionObserver' in window) {
     const once = (el, fn, th = .5) => { if (!el) return; const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { o.disconnect(); setTimeout(fn, 200); } }, { threshold: th }); o.observe(el); };
-    once(statsBox, runStats); once(counter, runCounter, .6);
+    const afterPreloader = fn => () => { const go = () => setTimeout(fn, 350); document.documentElement.classList.contains('is-loaded') ? go() : addEventListener('vs:loaded', go, { once: true }); };
+    once(statsBox, afterPreloader(runStats)); once(counter, runCounter, .6);
   }
 
   /* ===== Каталог материалов: «Подробнее» раскрывается в строке ===== */
