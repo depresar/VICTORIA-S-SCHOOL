@@ -797,3 +797,5 @@ h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
   .hero-sec .hero { gap: 14px; }
 }
 @media (max-width: 900px) { .hero-sec .hero__stage { padding-bottom: 74px; } }
+/* Телефон: композиция целиком опущена — свободное место поровну сверху и снизу */
+@media (max-width: 900px) { .hero-sec .hero { justify-content: center; } }
