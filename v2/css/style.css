@@ -668,3 +668,12 @@ h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
   .note--1 { top: 30% !important; } .note--3 { top: 44% !important; }
   .note--2 { top: 32% !important; } .note--4 { top: 46% !important; }
 }
+/* Шапка: логотип не выше шапки — все кнопки строго по центру */
+.header__bar { grid-template-rows: 100%; }
+.logo { align-self: center; height: 100%; align-items: center; }
+.logo img { width: auto; height: 42px; }
+/* Полоса достижений — дальше от слова SCHOOL */
+.stats { margin-top: clamp(40px, 7vh, 72px); }
+@media (max-width: 640px) { .logo img { height: 36px; } .stats { margin-top: 28px; } }
+.logo img { height: 40px; }
+@media (max-width: 640px) { .logo img { height: 34px; } }
