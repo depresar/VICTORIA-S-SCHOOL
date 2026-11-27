@@ -799,3 +799,5 @@ h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
 @media (max-width: 900px) { .hero-sec .hero__stage { padding-bottom: 74px; } }
 /* Телефон: композиция целиком опущена — свободное место поровну сверху и снизу */
 @media (max-width: 900px) { .hero-sec .hero { justify-content: center; } }
+/* Телефон/планшет: меню скрыто — две колонки, кнопки справа с тем же отступом, что и логотип слева */
+@media (max-width: 1100px) { .header__bar { grid-template-columns: auto 1fr; } }
