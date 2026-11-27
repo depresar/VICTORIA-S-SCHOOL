@@ -648,3 +648,41 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 @media (min-width: 641px) {
   .chip--4 { left: calc(100% + 16px); top: 56%; }
 }
+
+/* ==========================================================
+   Мобильная версия: аккуратные отступы и центровка
+   ========================================================== */
+@media (max-width: 900px) {
+  /* блоки не растягиваются на весь экран — нет пустых «дыр» */
+  .screen { min-height: 0; padding-block: 44px; }
+  .section-head { margin-bottom: 20px; gap: 8px; }
+  .panel { margin-top: 10px; }
+
+  /* карточки-карусели: промежуток между карточками */
+  .snap { gap: 12px; }
+  .steps.snap { gap: 12px; }
+  .mentor .subhead { margin-top: 4px; }
+  .bonus { margin-top: 14px; }
+  .mentor__cta { margin-top: 18px; }
+
+  /* карточка «Команда школы»: ничего не упирается в край */
+  .offer, .offer__top { min-width: 0; }
+  .offer__top { flex-wrap: wrap; gap: 10px; }
+  .offer .avatar { width: 46px; }
+  .offer__badge { font-size: 9.5px; padding: 6px 10px; }
+}
+@media (max-width: 640px) {
+  /* первый экран: всё по центру */
+  .hero { padding-top: 22px; }
+  .hero__content { text-align: center; padding-block: 0; }
+  .hero__title { margin-inline: auto; }
+  .hero__text { margin-inline: auto; }
+  /* три кнопки в один ряд на всю ширину */
+  .hero__buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .hero__buttons .btn { width: auto; min-height: 44px; padding: 6px 6px; font-size: 9.5px; letter-spacing: .04em; justify-content: center; text-align: center; white-space: normal; line-height: 1.25; }
+  .hero__buttons .btn__icon { display: none; }
+  .hero__media { margin-top: 18px; }
+  .stats { margin-top: 12px; }
+  .marquee { padding-block: 10px; }
+}
+@media (max-width: 900px) { .bento.snap { align-items: start; } .bento .card__foot { padding-top: 14px; } }
