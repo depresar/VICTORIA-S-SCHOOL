@@ -21,7 +21,7 @@
   <link rel="preload" href="assets/fonts/cormorant-cyr.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/victoria-hero-960.webp"
         imagesrcset="assets/img/victoria-hero-640.webp 640w, assets/img/victoria-hero-960.webp 960w, assets/img/victoria-hero-1280.webp 1280w"
-        imagesizes="(max-width: 980px) 92vw, 520px">
+        imagesizes="(max-width: 900px) 70vw, 460px">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>document.documentElement.classList.remove('no-js')</script>
 
@@ -55,20 +55,19 @@
   <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7 8 6 8-6"/></g></symbol>
 </svg>
 
-<!-- Прелоадер: максимум ~2 с, исчезает сразу после загрузки -->
+<!-- Прелоадер: логотип и линия загрузки, максимум ~2 с -->
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader__inner">
-    <div class="preloader__mark"><span>Victoria's</span><span>School</span></div>
+    <img class="preloader__logo" src="assets/img/logo.svg" alt="" width="210" height="131">
     <div class="preloader__bar"><i></i></div>
-    <div class="preloader__sub">школа английского</div>
   </div>
 </div>
 
 <!-- ============ ШАПКА ============ -->
 <header class="header" id="header">
-  <div class="container header__inner">
+  <div class="header__bar">
     <a href="#top" class="logo" aria-label="Victoria's School — на главную">
-      <img src="assets/img/logo.svg" alt="Victoria's School" width="104" height="65">
+      <img src="assets/img/logo.svg" alt="Victoria's School" width="92" height="58">
     </a>
     <nav class="nav" aria-label="Основное меню">
       <a href="#about">О школе</a>
@@ -111,11 +110,10 @@
 <main id="top">
 
   <!-- ============ HERO ============ -->
-  <section class="panel panel--navy hero" aria-label="Victoria's School">
+  <section class="panel panel--navy hero" aria-label="Victoria's School" style="margin-top:0">
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content" data-parallax-root>
-          <span class="eyebrow hero__eyebrow reveal">Онлайн-школа английского языка</span>
           <h1 class="hero__title reveal" style="--d:.1s">
             <span class="line">Victoria's</span>
             <span class="line line--2">School</span>
@@ -125,8 +123,7 @@
             <span class="chip chip--3" data-depth="10" aria-hidden="true">fluency</span>
             <span class="chip chip--4" data-depth="-20" aria-hidden="true">spelling</span>
           </h1>
-          <p class="hero__founder reveal" style="--d:.2s"><em>Виктория</em> — основательница школы</p>
-          <p class="hero__text reveal" style="--d:.25s">Общий английский и подготовка к экзаменам IELTS, Cambridge, ОГЭ и ЕГЭ. Говорить начинаете уже на первом уроке.</p>
+          <p class="hero__text reveal" style="--d:.2s">Общий английский и подготовка к экзаменам IELTS, Cambridge, ОГЭ и ЕГЭ. Говорить начинаете уже на первом уроке.</p>
           <div class="hero__buttons reveal" style="--d:.3s">
             <a class="btn btn--sand" href="#learning">О занятиях <span class="btn__icon"><svg><use href="#i-arrow"/></svg></span></a>
             <a class="btn btn--ghost-light" href="#materials">Материалы для обучения <span class="btn__icon"><svg><use href="#i-arrow"/></svg></span></a>
@@ -139,9 +136,10 @@
           <div class="hero__photo">
             <img src="assets/img/victoria-hero-960.webp"
                  srcset="assets/img/victoria-hero-640.webp 640w, assets/img/victoria-hero-960.webp 960w, assets/img/victoria-hero-1280.webp 1280w"
-                 sizes="(max-width: 980px) 92vw, 520px"
+                 sizes="(max-width: 900px) 70vw, 460px"
                  width="960" height="1375" alt="Виктория Сафронова, основательница Victoria's School" fetchpriority="high">
           </div>
+          <div class="hero__caption"><b>Виктория</b><span>основательница школы</span></div>
           <div class="seal" aria-label="Уровень C1, IELTS 7.5">
             <svg viewBox="0 0 124 124" aria-hidden="true">
               <defs><path id="seal-path" d="M62,62 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
@@ -155,17 +153,17 @@
       <!-- Три достижения: раньше были мелким текстом поверх фото -->
       <ul class="stats">
         <li class="stat reveal">
-          <span class="stat__num">2</span>
+          <span class="stat__num"><span data-count-to="2">2</span></span>
           <span class="stat__title">диплома с отличием</span>
           <span class="stat__text">Бакалавриат и магистратура: иностранные языки и лингвистика</span>
         </li>
         <li class="stat reveal" style="--d:.1s">
-          <span class="stat__num">8<small>лет</small></span>
+          <span class="stat__num"><span data-count-to="8">8</span><small>лет</small></span>
           <span class="stat__title">опыта преподавания</span>
           <span class="stat__text">Более 1000 учеников за это время</span>
         </li>
         <li class="stat reveal" style="--d:.2s">
-          <span class="stat__num">C1</span>
+          <span class="stat__num"><span data-level="A1,A2,B1,B2,C1">C1</span></span>
           <span class="stat__title">международно подтверждённый уровень</span>
           <span class="stat__text">Сертификат IELTS 7.5, 2021 год</span>
         </li>
@@ -182,21 +180,18 @@
   </div>
 
   <!-- ============ О ШКОЛЕ ============ -->
-  <section class="section about" id="about">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div style="display:grid;gap:18px">
-          <span class="eyebrow reveal">О школе</span>
-          <h2 class="h2 about__title reveal"><span class="brand">Victoria's School</span> <em>— это</em></h2>
-        </div>
+  <section class="about" id="about">
+    <div class="container screen">
+      <div class="section-head">
+        <h2 class="h2 about__title reveal"><span class="brand">Victoria's School</span> <em>— это</em></h2>
         <p class="lead reveal">Онлайн-школа, в которой занимаются студенты из разных точек мира: от первых слов до уровня C1 и международных экзаменов.</p>
       </div>
 
-      <div class="bento">
-        <img class="deco deco--laptop" src="assets/img/deco-laptop.webp" alt="" width="470" height="470" loading="lazy" data-float>
-        <img class="deco deco--pen" src="assets/img/deco-pen.webp" alt="" width="300" height="300" loading="lazy" data-float>
-        <img class="deco deco--coffee" src="assets/img/deco-coffee.webp" alt="" width="468" height="478" loading="lazy" data-float>
-        <img class="deco deco--notebook" src="assets/img/deco-notebook.webp" alt="" width="416" height="416" loading="lazy" data-float>
+      <div class="bento snap">
+        <span class="deco deco--laptop" data-scroll-speed="-0.08" aria-hidden="true"><img src="assets/img/deco-laptop.webp" alt="" width="470" height="470" loading="lazy"></span>
+        <span class="deco deco--pen" data-scroll-speed="0.1" aria-hidden="true"><img src="assets/img/deco-pen.webp" alt="" width="300" height="300" loading="lazy"></span>
+        <span class="deco deco--coffee" data-scroll-speed="-0.12" aria-hidden="true"><img src="assets/img/deco-coffee.webp" alt="" width="468" height="478" loading="lazy"></span>
+        <span class="deco deco--notebook" data-scroll-speed="0.06" aria-hidden="true"><img src="assets/img/deco-notebook.webp" alt="" width="416" height="416" loading="lazy"></span>
 
         <article class="card bento__a reveal">
           <span class="card__num">01</span>
@@ -213,10 +208,23 @@
           </div>
         </article>
 
-        <article class="card bento__b reveal" style="--d:.1s">
+        <article class="card bento__e reveal" style="--d:.05s">
           <span class="card__num">02</span>
+          <h3 class="h3 card__title">Дружелюбный вайб</h3>
+          <p class="card__text">Живое общение, интересные темы и поддержка: занятия, на которые хочется возвращаться.</p>
+          <div class="team-photo"><img src="assets/img/team-photo.webp" alt="Команда и студенты Victoria's School" width="1600" height="616" loading="lazy"></div>
+        </article>
+
+        <article class="card card--navy bento__d reveal" style="--d:.1s">
+          <span class="card__num">03</span>
+          <div><span class="bigstat__num" data-count="1000">1000<sup>+</sup></span>
+            <p class="bigstat__text">учеников за 8 лет работы — показатель доверия и качества</p></div>
+        </article>
+
+        <article class="card bento__b reveal" style="--d:.15s">
+          <div><span class="card__num">04</span>
           <h3 class="h3 card__title">Гарантия результата</h3>
-          <p class="card__text">Баллы ЕГЭ наших студентов от 71 до 96, международные сертификаты Cambridge и поступление в вузы за рубежом.</p>
+          <p class="card__text">Баллы ЕГЭ наших студентов от 71 до 96, международные сертификаты Cambridge и поступление в вузы за рубежом.</p></div>
           <div class="results" aria-label="Отзывы студентов и их сертификаты">
             <img class="c1" src="assets/img/cert-alina.webp" alt="Сертификат Cambridge C1 студентки школы" width="496" height="514" loading="lazy">
             <img class="r1" src="assets/img/review-1.webp" alt="Отзыв: I received C1, thank you so much" width="420" height="200" loading="lazy">
@@ -225,37 +233,19 @@
             <img class="c2" src="assets/img/cert-alexandra.webp" alt="Сертификат Cambridge B2 First студентки школы" width="392" height="248" loading="lazy">
           </div>
         </article>
-
-        <article class="card bento__e reveal">
-          <span class="card__num">03</span>
-          <h3 class="h3 card__title">Дружелюбный вайб</h3>
-          <p class="card__text">Живое общение, интересные темы и поддержка: занятия, на которые хочется возвращаться.</p>
-          <div class="team-photo"><img src="assets/img/team-photo.webp" alt="Команда и студенты Victoria's School" width="800" height="308" loading="lazy"></div>
-        </article>
-
-        <article class="card card--navy bento__d reveal">
-          <span class="card__num">04</span>
-          <div class="bigstat">
-            <span class="bigstat__num" data-count="1000">1000<sup>+</sup></span>
-            <p class="bigstat__text">учеников за 8 лет работы — показатель доверия и качества</p>
-          </div>
-        </article>
       </div>
     </div>
   </section>
 
   <!-- ============ ОБУЧЕНИЕ ============ -->
-  <section class="section learn" id="learning" style="padding-top:0">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div style="display:grid;gap:18px">
-          <span class="eyebrow reveal">Обучение</span>
-          <h2 class="h2 reveal">Выберите <em>формат</em></h2>
-        </div>
+  <section class="learn" id="learning">
+    <div class="container screen">
+      <div class="section-head">
+        <h2 class="h2 reveal">Выберите <em>формат</em></h2>
         <p class="lead reveal">Занятия по 60 минут на интерактивных платформах, по учебникам Oxford и Cambridge и аутентичным материалам под ваши интересы.</p>
       </div>
 
-      <div class="learn__grid">
+      <div class="learn__grid snap">
         <article class="offer reveal">
           <div class="offer__top">
             <div class="avatars">
@@ -304,17 +294,14 @@
   </section>
 
   <!-- ============ САМОСТОЯТЕЛЬНОЕ ОБУЧЕНИЕ ============ -->
-  <section class="panel panel--sand section" id="materials">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div style="display:grid;gap:18px">
-          <span class="eyebrow reveal" style="color:var(--navy)">Материалы</span>
-          <h2 class="h2 reveal">Самостоятельное <em style="color:var(--navy-3)">обучение</em></h2>
-        </div>
+  <section class="panel panel--sand" id="materials">
+    <div class="container screen">
+      <div class="section-head">
+        <h2 class="h2 reveal">Самостоятельное <em style="color:var(--navy-3)">обучение</em></h2>
         <p class="lead reveal" style="color:var(--navy)">Авторские гайды, воркбук и закрытый клуб — чтобы поддерживать английский каждый день.</p>
       </div>
 
-      <div class="products">
+      <div class="products snap">
         <!-- Гайд -->
         <article class="product reveal">
           <div class="product__cover">
@@ -448,8 +435,8 @@
   </section>
 
   <!-- ============ ДЛЯ ПРЕПОДАВАТЕЛЕЙ ============ -->
-  <section class="panel panel--navy section mentor" id="teachers" style="margin-top:var(--panel-inset)">
-    <div class="container">
+  <section class="panel panel--navy mentor" id="teachers">
+    <div class="container screen">
       <div class="mentor__grid">
         <div class="mentor__media reveal">
           <div class="mentor__photo">
@@ -464,13 +451,13 @@
 
         <div>
           <div class="section-head">
-            <span class="eyebrow reveal" style="color:var(--sand)">Обучение для преподавателей</span>
             <h2 class="h2 reveal">Консультация <em style="color:var(--sand)">для преподавателей</em></h2>
             <p class="lead reveal">Возможность перенять мой 8-летний опыт преподавания и сохранить свои силы, время и другие ресурсы.</p>
+            <div class="mentor__price-inline"><b>14 000 ₽</b><span>или 180 € · 60 минут</span></div>
           </div>
 
-          <h3 class="eyebrow reveal" style="color:var(--sand);margin-bottom:8px">Что вы получите за 60 минут</h3>
-          <ol class="steps">
+          <h3 class="subhead reveal">Что вы получите за 60 минут</h3>
+          <ol class="steps snap">
             <li class="step reveal"><h3>Продвижение в соцсетях</h3><p>Узнаете, как найти свой стиль и привлечь целевую аудиторию.</p></li>
             <li class="step reveal"><h3>Учебные материалы</h3><p>Рекомендации по учебным пособиям для разных уровней, а также доступ к PDF-файлам всех необходимых материалов.</p></li>
             <li class="step reveal"><h3>Тонкости первого урока с учеником</h3><p>Узнаете, как организовать первый урок так, чтобы ученики стали вашими постоянными клиентами.</p></li>
@@ -493,17 +480,14 @@
   </section>
 
   <!-- ============ ДОКУМЕНТЫ ============ -->
-  <section class="section" id="documents">
-    <div class="container">
-      <div class="section-head section-head--split">
-        <div style="display:grid;gap:18px">
-          <span class="eyebrow reveal">Документы</span>
-          <h2 class="h2 reveal">Образование <em>и квалификация</em></h2>
-        </div>
+  <section id="documents">
+    <div class="container screen">
+      <div class="section-head">
+        <h2 class="h2 reveal">Образование <em>и квалификация</em></h2>
         <p class="lead reveal">Дипломы и международный сертификат Виктории. Нажмите на документ, чтобы рассмотреть его подробнее.</p>
       </div>
 
-      <div class="docs">
+      <div class="docs snap">
         <button class="doc reveal" type="button" data-doc="0">
           <span class="doc__frame"><img src="assets/img/doc-ielts-600.webp" width="600" height="776" alt="Сертификат IELTS 7.5" loading="lazy"><span class="doc__zoom"><svg><use href="#i-zoom"/></svg></span></span>
           <span><span class="doc__year">2021 · C1 / Advanced</span><span class="doc__title" style="display:block">Сертификат IELTS 7.5</span><span class="doc__org" style="display:block">Международный экзамен по английскому языку</span></span>
@@ -525,11 +509,10 @@
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section class="panel panel--paper section" id="faq">
-    <div class="container">
+  <section class="panel panel--paper" id="faq">
+    <div class="container screen">
       <div class="faq__grid">
         <aside class="faq__aside">
-          <span class="eyebrow reveal">FAQ</span>
           <h2 class="h2 reveal">Частые <em>вопросы</em></h2>
           <div class="ask-card reveal">
             <div class="ask-card__body">
@@ -581,18 +564,8 @@
 </main>
 
 <!-- ============ ПОДВАЛ / КОНТАКТЫ ============ -->
-<footer class="panel panel--navy footer" id="contacts" style="margin-top:var(--panel-inset)">
+<footer class="panel panel--navy footer" id="contacts">
   <div class="container">
-    <div class="footer__cta">
-      <div>
-        <h2 class="reveal">Остались вопросы <em>или можем помочь?</em></h2>
-        <p class="reveal">Напишите нам напрямую — мы онлайн!</p>
-      </div>
-      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:12px">
-        <a class="btn btn--sand" href="https://t.me/vikusyonochek" target="_blank" rel="noopener">Задать вопрос <span class="btn__icon"><svg><use href="#i-arrow"/></svg></span></a>
-        <button class="btn btn--ghost-light" type="button" data-open-trial>Пробный урок</button>
-      </div>
-    </div>
 
     <div class="footer__cols">
       <div>

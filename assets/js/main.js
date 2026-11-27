@@ -10,8 +10,8 @@
     // Сюда можно вставить адрес Formspree / Make / свой сервер (POST, JSON).
     formEndpoint: '',
     telegram: 'https://t.me/vikusyonochek',
-    preloaderMin: 900,   // мс — минимум показа, чтобы не мигал
-    preloaderMax: 2200,  // мс — максимум, даже если что-то грузится долго
+    preloaderMin: 800,   // мс — минимум показа, чтобы не мигал
+    preloaderMax: 2000,  // мс — максимум, даже если что-то грузится долго
   };
 
   const $ = (s, r = document) => r.querySelector(s);
@@ -57,10 +57,8 @@
   const onScroll = () => {
     const y = scrollY;
     header.classList.toggle('is-scrolled', y > 10);
-    const menuOpen = header.classList.contains('menu-open');
-    header.classList.toggle('is-hidden', !menuOpen && y > 600 && y > lastY + 4);
-    if (y < lastY - 4) header.classList.remove('is-hidden');
     lastY = y;
+    parallax();
     const max = document.documentElement.scrollHeight - innerHeight;
     toTop.style.setProperty('--progress', max > 0 ? (y / max).toFixed(3) : 0);
     toTop.classList.toggle('is-visible', y > 700);
@@ -133,6 +131,48 @@
     io.observe(counter);
   }
 
+  /* ===== Достижения: цифры растут, уровень «прокачивается» A1 → C1 ===== */
+  const statsBox = $('.stats');
+  const runStats = () => {
+    $$('[data-count-to]', statsBox).forEach(el => {
+      const to = +el.dataset.countTo, dur = 1400, start = performance.now();
+      const tick = (now) => {
+        const p = Math.min(1, (now - start) / dur);
+        el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(tick);
+    });
+    $$('[data-level]', statsBox).forEach(el => {
+      const levels = el.dataset.level.split(',');
+      let i = 0;
+      el.textContent = levels[0];
+      const step = () => {
+        i++;
+        if (i >= levels.length) return;
+        el.classList.add('is-switch');
+        setTimeout(() => { el.textContent = levels[i]; el.classList.remove('is-switch'); setTimeout(step, 230); }, 200);
+      };
+      setTimeout(step, 300);
+    });
+  };
+  if (statsBox && !reduced && 'IntersectionObserver' in window) {
+    const sio = new IntersectionObserver(([e]) => { if (e.isIntersecting) { sio.disconnect(); setTimeout(runStats, 200); } }, { threshold: .5 });
+    sio.observe(statsBox);
+  }
+
+  /* ===== Предметы-декор двигаются при прокрутке ===== */
+  function parallax() {
+    if (reduced) return;
+    const vh = innerHeight;
+    document.querySelectorAll('[data-scroll-speed]').forEach(d => {
+      const r = d.parentElement.getBoundingClientRect();
+      const offset = (r.top + r.height / 2 - vh / 2) * +d.dataset.scrollSpeed;
+      d.style.setProperty('--sy', offset.toFixed(1) + 'px');
+    });
+  }
+
   /* ===== Карточки «Подробнее» (панель внутри карточки) ===== */
   const closeDetails = (card) => {
     card.classList.remove('is-open');
@@ -166,17 +206,14 @@
     setMenu(false);
     trial.showModal();
     document.body.classList.add('is-locked');
-    store.set('vs-trial-seen', '1', sessionStorage);
   };
   const closeTrial = () => { trial.close(); };
   trial.addEventListener('close', () => document.body.classList.remove('is-locked'));
   trial.addEventListener('click', (e) => { if (e.target === trial) closeTrial(); }); // клик по фону
   $$('[data-open-trial]').forEach(b => b.addEventListener('click', openTrial));
   $('[data-close-trial]').addEventListener('click', closeTrial);
-  // Автопоказ через N секунд — один раз за визит
-  if (!store.get('vs-trial-seen', sessionStorage)) {
-    setTimeout(() => { if (!document.querySelector('dialog[open]')) openTrial(); }, CONFIG.trialDelay * 1000 + CONFIG.preloaderMin);
-  }
+  // Автопоказ через N секунд — при каждом заходе и обновлении страницы
+  setTimeout(() => { if (!document.querySelector('dialog[open]')) openTrial(); }, CONFIG.trialDelay * 1000 + CONFIG.preloaderMin);
 
   /* Форма заявки */
   const form = $('#trial-form');
