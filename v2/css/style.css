@@ -750,3 +750,24 @@ h1, h2, h3, h4, p, dl, dd, figure { margin: 0; }
   .hero-sec .note--1, .hero-sec .note--3 { right: calc(100% + 8px) !important; }
   .hero-sec .note--2, .hero-sec .note--4 { left: calc(100% + 8px) !important; }
 }
+
+/* ---------- Мобильные правки ---------- */
+@media (max-width: 900px) {
+  /* название ближе к фото: заголовок и фото — одна группа по центру */
+  .hero-sec .hero { justify-content: flex-start; }
+  .hero__title { margin-top: auto; }
+  .hero-sec .hero__stage { flex: 0 0 auto; padding-top: 6px; }
+  .hero__bottom { margin-top: auto; }
+
+  /* конверт: пункты стоят прямо над конвертом, а не у верха экрана */
+  .letter-stage { grid-template-rows: 1fr auto; }
+  .facts { align-self: end; padding-top: 0; padding-bottom: 6px; }
+  .envelope-wrap { height: min(118vw, 62svh); }
+
+  /* билеты обучения не вылезают за край */
+  .ticket, .ticket__body, .ticket__top { min-width: 0; }
+  .ticket .avatars, .ticket .avatar { display: none; }
+  .ticket__title { font-size: 22px; }
+  .ticket__meta dd { font-size: 15px; }
+  .ticket .btn { white-space: normal; text-align: center; padding: 10px 14px; }
+}

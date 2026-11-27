@@ -58,7 +58,9 @@
     card.style.transform = 'none';
     facts.forEach(f => { f.style.transform = 'none'; });
     const sRect = stage.getBoundingClientRect(), cRect = card.getBoundingClientRect();
-    riseMax = Math.max(0, Math.min(cRect.height * 0.82, cRect.top - sRect.top - 14));
+    // на телефоне факты стоят над конвертом — открытка поднимается ровно до них
+    const ceil = innerWidth <= 900 ? Math.max(...facts.map(f => f.getBoundingClientRect().bottom)) + 12 : sRect.top + 14;
+    riseMax = Math.max(0, Math.min(cRect.height * 0.82, cRect.top - ceil));
     const cx = cRect.left + cRect.width / 2, cy = cRect.top + cRect.height * 0.4;
     vecs = facts.map(f => { const r = f.getBoundingClientRect(); return [cx - (r.left + r.width / 2), cy - (r.top + r.height / 2)]; });
     envTarget = progress(); envP = envTarget; render();
