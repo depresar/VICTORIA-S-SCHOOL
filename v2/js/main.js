@@ -44,31 +44,54 @@
     items.forEach(el => io.observe(el));
   }
 
-  /* ===== Конверт: печать слетает, клапан открывается, открытка выезжает ===== */
+  /* ===== Конверт: печать слетает, клапан открывается, открытка выезжает,
+     а четыре факта вылетают из конверта и встают на свои места.
+     Прогресс сглаживается (инерция), трансформации пишутся напрямую в элементы. ===== */
   const sec = $('.letter-sec'), stage = $('#letter-stage'), env = $('#envelope'), card = $('#letter');
+  const flap = $('.env-flap'), seal = $('.env-seal');
   const facts = $$('.fact');
-  let riseMax = 0;
+  let riseMax = 0, envTarget = 0, envP = 0, envRaf = 0, vecs = [];
+  const ease = t => 1 - Math.pow(1 - t, 3);
   const measure = () => {
     if (!sec) return;
-    card.style.translate = '0 0';
+    card.style.transform = 'none';
+    facts.forEach(f => { f.style.transform = 'none'; });
     const sRect = stage.getBoundingClientRect(), cRect = card.getBoundingClientRect();
-    const head = $('.letter-head').getBoundingClientRect();
-    // открытка поднимается, пока её верх не окажется под заголовком (но не больше 80% её высоты)
-    const limit = cRect.top - (innerWidth <= 900 ? sRect.top + 8 : head.bottom + 10);
-    riseMax = Math.max(0, Math.min(cRect.height * 0.8, limit));
-    update();
+    riseMax = Math.max(0, Math.min(cRect.height * 0.82, cRect.top - sRect.top - 14));
+    const cx = cRect.left + cRect.width / 2, cy = cRect.top + cRect.height * 0.4;
+    vecs = facts.map(f => { const r = f.getBoundingClientRect(); return [cx - (r.left + r.width / 2), cy - (r.top + r.height / 2)]; });
+    envTarget = progress(); envP = envTarget; render();
+  };
+  const progress = () => {
+    const total = sec.offsetHeight - stage.offsetHeight;
+    return reduced ? 1 : clamp((stage.getBoundingClientRect().top - sec.getBoundingClientRect().top) / Math.max(1, total));
+  };
+  function render() {
+    const p = envP;
+    const open = clamp(p / 0.24);
+    const rise = ease(clamp((p - 0.2) / 0.45));
+    flap.style.transform = `perspective(1600px) rotateX(${(open * 180).toFixed(2)}deg)`;
+    env.classList.toggle('is-flap-back', open > 0.5);
+    seal.style.opacity = Math.max(0, 1 - open * 2.4).toFixed(3);
+    seal.style.transform = `scale(${(1 + open * 0.35).toFixed(3)}) rotate(${(open * 25).toFixed(1)}deg)`;
+    card.style.transform = `translate3d(0, ${(-riseMax * rise).toFixed(1)}px, 0)`;
+    facts.forEach((f, i) => {
+      const t = ease(clamp((p - +f.dataset.at) / 0.22));
+      const [dx, dy] = vecs[i] || [0, 0];
+      f.style.opacity = t.toFixed(3);
+      f.style.transform = `translate3d(${(dx * (1 - t)).toFixed(1)}px, ${(dy * (1 - t)).toFixed(1)}px, 0) scale(${(0.35 + 0.65 * t).toFixed(3)}) rotate(${((1 - t) * (i % 2 ? 12 : -12)).toFixed(1)}deg)`;
+    });
+  }
+  const loop = () => {
+    envP += (envTarget - envP) * 0.14;
+    if (Math.abs(envTarget - envP) < 0.0004) envP = envTarget;
+    render();
+    envRaf = envP !== envTarget ? requestAnimationFrame(loop) : 0;
   };
   function update() {
     if (!sec) return;
-    const total = sec.offsetHeight - stage.offsetHeight;
-    const p = reduced ? 1 : clamp((stage.getBoundingClientRect().top - sec.getBoundingClientRect().top) / Math.max(1, total));
-    const open = clamp(p / 0.25);
-    const rise = clamp((p - 0.22) / 0.5);
-    const ease = t => 1 - Math.pow(1 - t, 3);
-    stage.style.setProperty('--open', open.toFixed(3));
-    card.style.translate = `0 ${(-riseMax * ease(rise)).toFixed(1)}px`;
-    env.classList.toggle('is-flap-back', open > 0.5);
-    facts.forEach(f => f.classList.toggle('is-in', p >= +f.dataset.at));
+    envTarget = progress();
+    if (!envRaf) envRaf = requestAnimationFrame(loop);
   }
   if (sec) { addEventListener('resize', measure); document.fonts?.ready.then(measure); measure(); }
 
