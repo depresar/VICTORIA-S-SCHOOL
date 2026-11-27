@@ -638,3 +638,7 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
   .hero__caption span { font-size: 10px; letter-spacing: .04em; }
   .hero__caption b { font-size: 16px; }
 }
+
+/* Переключатель языка */
+.lang-switch { display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 12px; font-weight: 700; letter-spacing: .08em; transition: background .3s, color .3s; }
+.lang-switch:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }

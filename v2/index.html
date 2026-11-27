@@ -7,6 +7,8 @@
   <meta name="description" content="Victoria's School — премиальная онлайн-школа английского языка Виктории Сафроновой: индивидуальные занятия, подготовка к IELTS, Cambridge, ОГЭ и ЕГЭ, авторские материалы и консультации для преподавателей.">
   <meta name="theme-color" content="#2e0a0e">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="ru" href="./">
+  <link rel="alternate" hreflang="en" href="en/">
   <link rel="preload" href="../assets/fonts/playfair-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/greatvibes-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/playfair-normal-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
@@ -28,6 +30,14 @@
     <circle cx="100" cy="100" r="62" fill="none" stroke="#3e070c" stroke-opacity=".55" stroke-width="2"/>
     <circle cx="100" cy="100" r="54" fill="none" stroke="#c6545c" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 4"/>
     <g filter="url(#emboss)" fill="#7a141d" text-anchor="middle"><text x="86" y="120" font-size="70">V</text><text x="118" y="126" font-size="62">S</text></g>
+  </symbol>
+  <radialGradient id="gold-wax" cx="38%" cy="30%" r="78%"><stop offset="0" stop-color="#f3dca6"/><stop offset=".5" stop-color="#c9a160"/><stop offset="1" stop-color="#8a6630"/></radialGradient>
+  <symbol id="seal-gold" viewBox="0 0 200 200">
+    <path fill="url(#gold-wax)" d="M100 8c11 0 15 7 25 9s17-3 25 4 4 15 10 22 15 8 18 18-5 15-3 24 9 15 5 24-12 10-17 18-2 17-11 22-15-1-24 2-14 11-25 11-15-8-25-11-17 4-24-2-5-14-11-21-16-9-18-19 5-15 3-24-9-14-5-23 13-11 18-19 2-16 11-22 14 0 23-3 13-11 25-11z"/>
+    <circle cx="100" cy="100" r="62" fill="#c49a58"/>
+    <circle cx="100" cy="100" r="62" fill="none" stroke="#7a5826" stroke-opacity=".6" stroke-width="2"/>
+    <circle cx="100" cy="100" r="54" fill="none" stroke="#f6e3b4" stroke-opacity=".5" stroke-width="1" stroke-dasharray="2 4"/>
+    <g fill="#9c7638" text-anchor="middle" style="filter:drop-shadow(0 1.5px 0 rgba(90,60,20,.8)) drop-shadow(0 -1px 0 rgba(255,240,200,.7))"><text x="86" y="122" font-size="78">V</text><text x="120" y="128" font-size="70">S</text></g>
   </symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4M10 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></symbol>
@@ -60,6 +70,7 @@
     </nav>
     <a href="#top" class="logo" aria-label="Victoria's School — наверх"><img src="img/logo-ivory.svg" alt="Victoria's School" width="96" height="60"></a>
     <div class="header__actions">
+      <a class="icon-sq lang-switch" href="en/" hreflang="en" lang="en" aria-label="English version">EN</a>
       <a class="icon-sq header__tg" href="https://t.me/vikusyonochek" target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg><use href="#i-tg"/></svg></a>
       <button class="btn btn--sm header__cta" type="button" data-open-trial>Пробный урок</button>
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
@@ -140,38 +151,36 @@
     </div>
   </div>
 
-  <!-- ============ ПИСЬМО ИЗ КОНВЕРТА (О ШКОЛЕ) ============ -->
+  <!-- ============ КОНВЕРТ С ОТКРЫТКОЙ (О ШКОЛЕ) ============ -->
   <section class="letter-sec on-light" id="about">
     <div class="container letter-stage" id="letter-stage">
-      <div class="letter-side letter-side--left">
-        <h2 class="title title--ink"><span class="ini">П</span>исьмо <br>от школы</h2>
-        <p>Мы собрали главное о Victoria's School в одном письме. Листайте вниз, чтобы открыть конверт.</p>
-        <span class="scroll-hint"><i></i>Листайте</span>
+      <div class="letter-head">
+        <h2 class="title" aria-label="Victoria's School — это"><span class="ini">V</span>ictoria's <span class="ini">S</span>chool — это</h2>
+        <span class="scroll-hint"><i></i>Листайте, чтобы открыть<i></i></span>
+      </div>
+
+      <div class="facts facts--left">
+        <div class="fact" data-at=".25"><span class="roman">I.</span><h3>Преподаватели с лингвистическим образованием</h3><p>Каждого лично отбирает Виктория: высшее образование, опыт и высокий уровень английского.</p></div>
+        <div class="fact" data-at=".45"><span class="roman">II.</span><h3>Гарантия результата</h3><p>Баллы ЕГЭ от 71 до 96, международные сертификаты, поступление в вузы за рубежом.</p></div>
       </div>
 
       <div class="envelope-wrap">
         <div class="envelope" id="envelope">
           <div class="env-back"></div>
           <div class="env-flap"></div>
-          <article class="letter notch" id="letter">
-            <p class="letter__hello">Dear student,</p>
-            <h3 class="letter__title">Victoria's School — это</h3>
-            <ol class="letter__list">
-              <li><span class="roman">I.</span><span><b>Преподаватели с лингвистическим образованием</b>Каждого лично отбирает Виктория: высшее образование, опыт и высокий уровень английского.</span></li>
-              <li><span class="roman">II.</span><span><b>Гарантия результата</b>Баллы ЕГЭ от 71 до 96, международные сертификаты и поступление в вузы за рубежом.</span></li>
-              <li><span class="roman">III.</span><span><b>Дружелюбная атмосфера</b>Живое общение и поддержка: говорить вы начнёте уже на первом уроке.</span></li>
-              <li><span class="roman">IV.</span><span><b>Более 1000 учеников за 8 лет</b>Показатель доверия и качества.</span></li>
-            </ol>
-            <div class="letter__sign"><small>Со всей любовью<br>к английскому</small><span class="script">Victoria</span></div>
-          </article>
+          <div class="card-emb" id="letter" aria-hidden="true">
+            <span class="emb emb--script">Victoria's</span>
+            <span class="emb emb--serif">School</span>
+            <span class="emb emb--small">English school · online</span>
+          </div>
           <div class="env-pocket"></div>
-          <svg class="seal env-seal"><use href="#seal"/></svg>
+          <svg class="seal env-seal" aria-hidden="true"><use href="#seal-gold"/></svg>
         </div>
       </div>
 
-      <div class="letter-side letter-side--right">
-        <p>Студенты из разных точек мира — от первых слов до уровня C1 и международных экзаменов.</p>
-        <button class="btn btn--wine btn--sm" type="button" data-open-trial>Бесплатный урок</button>
+      <div class="facts facts--right">
+        <div class="fact" data-at=".35"><span class="roman">III.</span><h3>Дружелюбная атмосфера</h3><p>Живое общение и поддержка: говорить вы начнёте уже на первом уроке.</p></div>
+        <div class="fact" data-at=".55"><span class="roman">IV.</span><h3>Более 1000 учеников за 8 лет</h3><p>Показатель доверия и качества. Студенты из разных точек мира.</p></div>
       </div>
     </div>
   </section>
@@ -187,7 +196,7 @@
         </div>
 
         <div class="results__center reveal" style="--d:.1s">
-          <h2 class="title"><span class="ini">Г</span>арантия <br>результата</h2>
+          <h2 class="title" aria-label="Гарантия результата"><span class="ini ini--c">Г</span>арантия <br>результата</h2>
           <div class="big1000" data-count="1000">1000<sup>+</sup></div>
           <p class="lead" style="text-align:center">учеников за 8 лет работы — баллы ЕГЭ до 96 и международные сертификаты Cambridge</p>
           <div class="teachers-line">
@@ -214,7 +223,7 @@
   <section class="sec sec--parchment on-light" id="learning">
     <div class="container screen">
       <div class="head">
-        <h2 class="title reveal"><span class="ini">Ф</span>орматы <em>обучения</em></h2>
+        <h2 class="title reveal" aria-label="Форматы обучения"><span class="ini ini--c">Ф</span>орматы <em>обучения</em></h2>
         <p class="lead reveal">Занятия по 60 минут на интерактивных платформах, по учебникам Oxford и Cambridge и аутентичным материалам под ваши интересы.</p>
       </div>
       <div class="tickets snap">
@@ -222,7 +231,7 @@
           <div class="ticket__stub"><span class="roman">I</span><span>Индивидуально</span></div>
           <div class="ticket__body">
             <div class="ticket__top">
-              <h3 class="ticket__title"><span class="ini">С</span> Викторией</h3>
+              <h3 class="ticket__title" aria-label="С Викторией"><span class="ini" aria-hidden="true">C</span> Викторией</h3>
               <span class="avatar"><img src="../assets/img/avatar-victoria.webp" alt="Виктория" width="240" height="249" loading="lazy"></span>
             </div>
             <p class="ticket__lead">Индивидуальные занятия с основательницей школы: программа под ваши цели — от разговорной практики до высоких баллов на экзамене.</p>
@@ -235,7 +244,7 @@
           <div class="ticket__stub"><span class="roman">II</span><span>Команда школы</span></div>
           <div class="ticket__body">
             <div class="ticket__top">
-              <h3 class="ticket__title"><span class="ini">С</span> преподавателями</h3>
+              <h3 class="ticket__title" aria-label="С преподавателями"><span class="ini" aria-hidden="true">C</span> преподавателями</h3>
               <div class="avatars">
                 <span class="avatar"><img src="../assets/img/avatar-t1.webp" alt="" width="240" height="240" loading="lazy"></span>
                 <span class="avatar"><img src="../assets/img/avatar-t2.webp" alt="" width="240" height="240" loading="lazy"></span>
@@ -256,7 +265,7 @@
   <section class="sec sec--dark" id="materials">
     <div class="container screen">
       <div class="head">
-        <h2 class="title reveal"><span class="ini">С</span>амостоятельное <br><span class="ini">О</span>бучение</h2>
+        <h2 class="title reveal" aria-label="Самостоятельное обучение"><span class="ini">C</span>амостоятельное <br><span class="ini">O</span>бучение</h2>
         <p class="lead reveal">Авторские гайды, воркбук и закрытый клуб — чтобы поддерживать английский каждый день.</p>
       </div>
 
@@ -367,7 +376,7 @@
         </div>
         <div>
           <div class="head" style="grid-template-columns:1fr">
-            <h2 class="title reveal"><span class="ini">К</span>онсультация <br>для <span class="ini">П</span>реподавателей</h2>
+            <h2 class="title reveal" aria-label="Консультация для преподавателей"><span class="ini">K</span>онсультация <br>для <span class="ini ini--c">П</span>реподавателей</h2>
             <p class="lead reveal">Возможность перенять мой 8-летний опыт преподавания и сохранить свои силы, время и другие ресурсы.</p>
           </div>
           <div class="suite notch inner-frame reveal">
@@ -394,26 +403,26 @@
   <section class="sec sec--dark" id="documents">
     <div class="container screen">
       <div class="head head--center">
-        <h2 class="title reveal"><span class="ini">О</span>бразование и <span class="ini">К</span>валификация</h2>
+        <h2 class="title reveal" aria-label="Образование и квалификация"><span class="ini">O</span>бразование и <span class="ini">K</span>валификация</h2>
         <p class="lead reveal">Дипломы и международный сертификат Виктории. Нажмите на документ, чтобы рассмотреть его.</p>
       </div>
       <div class="gallery snap">
-        <button class="doc reveal" type="button" data-doc="0">
+        <button class="doc reveal" type="button" data-doc="0" data-title="Сертификат IELTS 7.5 — уровень C1 / Advanced (2021)">
           <span class="frame"><span class="frame__inner"><img src="../assets/img/doc-ielts-600.webp" width="600" height="776" alt="Сертификат IELTS 7.5" loading="lazy"></span></span>
           <span class="plaque"><b>IELTS 7.5 · C1</b><span>2021</span></span>
           <span class="doc__org">Международный экзамен по английскому языку</span>
         </button>
-        <button class="doc reveal" type="button" data-doc="1" style="--d:.08s">
+        <button class="doc reveal" type="button" data-doc="1" data-title="Диплом магистра с отличием «Лингвистика» — РУДН (2023)" style="--d:.08s">
           <span class="frame"><span class="frame__inner"><img src="../assets/img/doc-master-600.webp" width="600" height="776" alt="Диплом магистра с отличием" loading="lazy"></span></span>
           <span class="plaque"><b>Магистр с отличием</b><span>РУДН, 2023</span></span>
           <span class="doc__org">«Лингвистика», Российский университет дружбы народов</span>
         </button>
-        <button class="doc reveal" type="button" data-doc="2" style="--d:.16s">
+        <button class="doc reveal" type="button" data-doc="2" data-title="Приложение к диплому магистра — РУДН (2023)" style="--d:.16s">
           <span class="frame"><span class="frame__inner"><img src="../assets/img/doc-master-app-600.webp" width="600" height="776" alt="Приложение к диплому магистра" loading="lazy"></span></span>
           <span class="plaque"><b>Приложение</b><span>РУДН, 2023</span></span>
           <span class="doc__org">Приложение к диплому магистра</span>
         </button>
-        <button class="doc reveal" type="button" data-doc="3" style="--d:.24s">
+        <button class="doc reveal" type="button" data-doc="3" data-title="Диплом бакалавра с отличием — ПсковГУ (2021)" style="--d:.24s">
           <span class="frame"><span class="frame__inner"><img src="../assets/img/doc-bachelor-600.webp" width="600" height="776" alt="Диплом бакалавра с отличием" loading="lazy"></span></span>
           <span class="plaque"><b>Бакалавр с отличием</b><span>ПсковГУ, 2021</span></span>
           <span class="doc__org">«Педагогическое образование», профили: иностранные языки</span>
@@ -427,7 +436,7 @@
     <div class="container screen">
       <div class="faq__grid">
         <div class="faq__aside">
-          <h2 class="title reveal"><span class="ini">Ч</span>астые <br><span class="ini">В</span>опросы</h2>
+          <h2 class="title reveal" aria-label="Частые вопросы"><span class="ini ini--c">Ч</span>астые <br><span class="ini">B</span>опросы</h2>
           <div class="ornate notch inner-frame reveal">
             <span class="script">Не нашли ответ?</span>
             <p>Напишите нам напрямую — мы онлайн и с радостью поможем.</p>

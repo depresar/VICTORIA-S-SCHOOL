@@ -14,6 +14,10 @@
     preloaderMax: 2000,  // мс — максимум, даже если что-то грузится долго
   };
 
+  const EN = document.documentElement.lang === 'en';
+  const T = EN
+    ? { open: 'Open menu', close: 'Close menu', more: 'Details', less: 'Hide', fail: 'Sorry, we could not send your request. Please message Victoria on Telegram: @vikusyonochek' }
+    : { open: 'Открыть меню', close: 'Закрыть меню', more: 'Подробнее', less: 'Свернуть', fail: 'Не получилось отправить заявку. Напишите, пожалуйста, Виктории в Telegram: @vikusyonochek' };
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -85,7 +89,7 @@
   const menu = $('#mobile-menu');
   const setMenu = (open) => {
     burger.setAttribute('aria-expanded', open);
-    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    burger.setAttribute('aria-label', open ? T.close : T.open);
     menu.classList.toggle('is-open', open);
     menu.setAttribute('aria-hidden', !open);
     header.classList.toggle('menu-open', open);
@@ -243,7 +247,7 @@
       }
       form.classList.add('is-sent');
     } catch {
-      alert('Не получилось отправить заявку. Напишите, пожалуйста, Виктории в Telegram: @vikusyonochek');
+      alert(T.fail);
     } finally {
       btn.disabled = false;
     }
@@ -251,12 +255,8 @@
   $$('input', form).forEach(i => i.addEventListener('input', () => i.removeAttribute('aria-invalid')));
 
   /* ===== Лайтбокс документов ===== */
-  const DOCS = [
-    { src: 'assets/img/doc-ielts-1275.webp', title: 'Сертификат IELTS 7.5 — уровень C1 / Advanced (2021)' },
-    { src: 'assets/img/doc-master-1275.webp', title: 'Диплом магистра с отличием «Лингвистика» — РУДН (2023)' },
-    { src: 'assets/img/doc-master-app-1275.webp', title: 'Приложение к диплому магистра — РУДН (2023)' },
-    { src: 'assets/img/doc-bachelor-1275.webp', title: 'Диплом бакалавра с отличием — ПсковГУ (2021)' },
-  ];
+  // Документы берём из разметки: крупная версия = миниатюра с -1275 вместо -600
+  const DOCS = $$('[data-doc]').map(b => ({ src: $('img', b).getAttribute('src').replace('-600.webp', '-1275.webp'), title: b.dataset.title || $('img', b).alt }));
   const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-caption');
   let cur = 0;
   const show = (i) => {

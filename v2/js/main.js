@@ -10,6 +10,10 @@
     preloaderMax: 2200,
   };
 
+  const EN = document.documentElement.lang === 'en';
+  const T = EN
+    ? { open: 'Open menu', close: 'Close menu', more: 'Details', less: 'Hide', fail: 'Sorry, we could not send your request. Please message Victoria on Telegram: @vikusyonochek' }
+    : { open: 'Открыть меню', close: 'Закрыть меню', more: 'Подробнее', less: 'Свернуть', fail: 'Не получилось отправить заявку. Напишите, пожалуйста, Виктории в Telegram: @vikusyonochek' };
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,43 +44,31 @@
     items.forEach(el => io.observe(el));
   }
 
-  /* ===== Конверт: письмо выезжает по скроллу ===== */
-  const sec = $('.letter-sec'), stage = $('#letter-stage'), env = $('#envelope'), letter = $('#letter');
-  let geo = null;
+  /* ===== Конверт: печать слетает, клапан открывается, открытка выезжает ===== */
+  const sec = $('.letter-sec'), stage = $('#letter-stage'), env = $('#envelope'), card = $('#letter');
+  const facts = $$('.fact');
+  let riseMax = 0;
   const measure = () => {
     if (!sec) return;
-    env.style.setProperty('--sink', '0px');
-    const envH = env.offsetHeight, H = letter.offsetHeight;
-    const sRect = stage.getBoundingClientRect(), eRect = env.getBoundingClientRect();
-    const top0 = envH * 0.06;
-    const E0 = eRect.top - sRect.top;
-    // конверт опускается настолько, чтобы письмо целиком оказалось над ним
-    const sinkMax = Math.max(envH * 0.62, 10 + H - E0 - envH * 0.97 + 6);
-    const riseMax = Math.max(0, E0 + sinkMax + top0 - 10);
-    geo = { envH, H, top0, sinkMax, riseMax };
-    letter.style.top = top0 + 'px';
-    letter.style.bottom = 'auto';
+    card.style.translate = '0 0';
+    const sRect = stage.getBoundingClientRect(), cRect = card.getBoundingClientRect();
+    const head = $('.letter-head').getBoundingClientRect();
+    // открытка поднимается, пока её верх не окажется под заголовком (но не больше 80% её высоты)
+    const limit = cRect.top - (innerWidth <= 900 ? sRect.top + 8 : head.bottom + 10);
+    riseMax = Math.max(0, Math.min(cRect.height * 0.8, limit));
     update();
   };
   function update() {
-    if (!geo) return;
-    const r = sec.getBoundingClientRect();
+    if (!sec) return;
     const total = sec.offsetHeight - stage.offsetHeight;
-    const p = reduced ? 1 : clamp((stage.getBoundingClientRect().top - r.top) / Math.max(1, total));
-    const open = clamp(p / 0.22);
-    const rise = clamp((p - 0.2) / 0.62);
-    const sink = clamp((p - 0.45) / 0.4);
+    const p = reduced ? 1 : clamp((stage.getBoundingClientRect().top - sec.getBoundingClientRect().top) / Math.max(1, total));
+    const open = clamp(p / 0.25);
+    const rise = clamp((p - 0.22) / 0.5);
     const ease = t => 1 - Math.pow(1 - t, 3);
-    const risePx = geo.riseMax * ease(rise);
-    const sinkPx = geo.sinkMax * ease(sink);
     stage.style.setProperty('--open', open.toFixed(3));
-    env.style.setProperty('--sink', sinkPx.toFixed(1) + 'px');
-    env.style.translate = `0 ${sinkPx.toFixed(1)}px`;
-    letter.style.translate = `0 ${(-risePx).toFixed(1)}px`;
-    // прячем часть письма, которая ниже дна конверта
-    const below = Math.max(0, geo.top0 + geo.H - risePx - geo.envH * 0.97);
-    letter.style.clipPath = `inset(0 0 ${below.toFixed(1)}px 0)`;
+    card.style.translate = `0 ${(-riseMax * ease(rise)).toFixed(1)}px`;
     env.classList.toggle('is-flap-back', open > 0.5);
+    facts.forEach(f => f.classList.toggle('is-in', p >= +f.dataset.at));
   }
   if (sec) { addEventListener('resize', measure); document.fonts?.ready.then(measure); measure(); }
 
@@ -116,7 +108,7 @@
   const header = $('#header'), burger = $('.burger'), menu = $('#mobile-menu');
   const setMenu = open => {
     burger.setAttribute('aria-expanded', open);
-    burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    burger.setAttribute('aria-label', open ? T.close : T.open);
     menu.classList.toggle('is-open', open); menu.setAttribute('aria-hidden', !open);
     document.body.classList.toggle('is-locked', open);
   };
@@ -156,7 +148,7 @@
       const open = !item.classList.contains('is-open');
       $$('.item.is-open').forEach(o => { if (o !== item) { o.classList.remove('is-open'); $('.item__toggle', o).setAttribute('aria-expanded', 'false'); $('.item__more', o).inert = true; } });
       item.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open); more.inert = !open;
-      const lbl = $('.lbl', btn); if (lbl) lbl.textContent = open ? 'Свернуть' : 'Подробнее';
+      const lbl = $('.lbl', btn); if (lbl) lbl.textContent = open ? T.less : T.more;
     });
   });
 
@@ -184,18 +176,14 @@
         window.open(CONFIG.telegram, '_blank', 'noopener');
       }
       form.classList.add('is-sent');
-    } catch { alert('Не получилось отправить заявку. Напишите, пожалуйста, Виктории в Telegram: @vikusyonochek'); }
+    } catch { alert(T.fail); }
     finally { btn.disabled = false; }
   });
   $$('input', form).forEach(i => i.addEventListener('input', () => i.removeAttribute('aria-invalid')));
 
   /* ===== Лайтбокс документов ===== */
-  const DOCS = [
-    { src: '../assets/img/doc-ielts-1275.webp', title: 'Сертификат IELTS 7.5 — уровень C1 / Advanced (2021)' },
-    { src: '../assets/img/doc-master-1275.webp', title: 'Диплом магистра с отличием «Лингвистика» — РУДН (2023)' },
-    { src: '../assets/img/doc-master-app-1275.webp', title: 'Приложение к диплому магистра — РУДН (2023)' },
-    { src: '../assets/img/doc-bachelor-1275.webp', title: 'Диплом бакалавра с отличием — ПсковГУ (2021)' },
-  ];
+  // Документы берём из разметки: крупная версия = миниатюра с -1275 вместо -600
+  const DOCS = $$('[data-doc]').map(b => ({ src: $('img', b).getAttribute('src').replace('-600.webp', '-1275.webp'), title: b.dataset.title || $('img', b).alt }));
   const lb = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-caption');
   let cur = 0;
   const show = i => { cur = (i + DOCS.length) % DOCS.length; lbImg.src = DOCS[cur].src; lbImg.alt = DOCS[cur].title; lbCap.textContent = DOCS[cur].title; };
