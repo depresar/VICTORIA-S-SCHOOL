@@ -642,3 +642,9 @@ h1, h2, h3, h4, p, dl, dd { margin: 0; }
 /* Переключатель языка */
 .lang-switch { display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 12px; font-weight: 700; letter-spacing: .08em; transition: background .3s, color .3s; }
 .lang-switch:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+/* Пометки в hero привязаны к ширине самой надписи, а не всего блока — spelling стоит рядом со SCHOOL */
+.hero__title { width: fit-content; }
+@media (min-width: 641px) {
+  .chip--4 { left: calc(100% + 16px); top: 56%; }
+}
