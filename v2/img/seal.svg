@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#c2414a"/>
+      <stop offset=".45" stop-color="#8e1b25"/>
+      <stop offset="1" stop-color="#4e0b12"/>
+    </radialGradient>
+    <radialGradient id="inner" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#a62a34"/>
+      <stop offset="1" stop-color="#5c0f17"/>
+    </radialGradient>
+    <filter id="emboss" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation=".8" flood-color="#2a0507" flood-opacity=".75"/>
+      <feDropShadow dx="0" dy="-1" stdDeviation=".5" flood-color="#e8838a" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <!-- неровный край сургуча -->
+  <path fill="url(#wax)" d="M100 8c11 0 15 7 25 9s17-3 25 4 4 15 10 22 15 8 18 18-5 15-3 24 9 15 5 24-12 10-17 18-2 17-11 22-15-1-24 2-14 11-25 11-15-8-25-11-17 4-24-2-5-14-11-21-16-9-18-19 5-15 3-24-9-14-5-23 13-11 18-19 2-16 11-22 14 0 23-3 13-11 25-11z"/>
+  <circle cx="100" cy="100" r="62" fill="url(#inner)"/>
+  <circle cx="100" cy="100" r="62" fill="none" stroke="#3e070c" stroke-opacity=".55" stroke-width="2"/>
+  <circle cx="100" cy="100" r="55" fill="none" stroke="#c6545c" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 4"/>
+  <g filter="url(#emboss)" fill="#7a141d" font-family="Great Vibes, Georgia, serif" text-anchor="middle">
+    <text x="88" y="118" font-size="64">V</text>
+    <text x="116" y="124" font-size="58">S</text>
+  </g>
+</svg>
